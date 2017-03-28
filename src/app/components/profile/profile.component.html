@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row card first">
+    <div class="title col-sm-12">
+      <i class="fa fa-university"></i>
+    </div>
+    <div class="status verified col-sm-12">
+      verified
+    </div>
+    <div class="row content col-sm-12">
+      <div class="info unknownBank col-sm-12">
+        <p class="title">Institution</p>
+        Navy Federal Credit Union
+      </div>
+      <div class="info knownBank col-sm-12">
+        <div class="logo"></div>
+      </div>
+      <div class="info col-xs-6">
+        <p class="title">Routing Number</p>
+        <p>112111551</p>
+      </div>
+      <div class="info col-xs-6">
+        <p class="title">Account Number</p>
+        <p>112111551</p>
+      </div>
+    </div>
+    <div class="footer col-sm-12">
+      <div class="action" [class.reveal]="!removing" [hidden]="removeAnim">
+        <a id="removeCard" (click)="toggleRemove(true)">Remove</a>
+      </div>
+      <div class="confirm" [class.reveal]="removing" [hidden]="!removeAnim">
+        <span class="message">Remove bank account?</span>
+        <a (click)="remove()">Yes</a>
+        <a id="cancelDelete" (click)="toggleRemove(false)">No</a>
+      </div>
+    </div>
+  </div>
+</div>

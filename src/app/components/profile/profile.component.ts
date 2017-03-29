@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ProfileAccountInfoComponent } from '../profile-account-info/profile-account-info.component';
+import { DataHandlerService } from '../../services/data-handler.service';
+import { SampleStateService } from '../../services/sample-state.service';
 
 @Component({
   selector: 'bank-profile',
@@ -7,25 +10,52 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
   
-  public removing: boolean;
-  public removeAnim: boolean;
+  @Input() public color: string = '#546e7a'; // Default input
+  public paying: boolean;
+  public payAnim: boolean;
+  public state: string;
   
-  constructor() {
+  // Avoid doing this unless really need to
+  @ViewChild(ProfileAccountInfoComponent) public myInfo: ProfileAccountInfoComponent;
+  
+  constructor(private dataHandler: DataHandlerService, private sampleStateService: SampleStateService) {
   }
   
   public ngOnInit() {
-    this.removing = this.removeAnim = false;
+    this.paying = this.payAnim = false;
+    this.listenForPayments();
+    this.streamState();
+    console.log(this.myInfo, 'Accessing View Child');
   }
   
-  public remove(): void {
-  
+  public pay(): void {
+    this.dataHandler.firePayment();
+    this.togglePay(false);
   }
   
-  public toggleRemove(val: boolean): void {
-    this.removing = val;
+  public togglePay(val: boolean): void {
+    this.paying = val;
     setTimeout(() => {
-      this.removeAnim = val;
+      this.payAnim = val;
     }, 300);
+  }
+  
+  public changeState(str: string): void {
+    this.state = str;
+    // this.sampleStateService.updateState(str);
+  }
+  
+  public streamState(): void {
+    this.sampleStateService.streamState().subscribe((state: string) => {
+      this.state = state;
+    });
+  }
+  
+  public listenForPayments(): void {
+    this.dataHandler.streamPayment().subscribe((val: boolean) => {
+      console.log('Payment:', val);
+      this.state = 'Payed';
+    });
   }
   
 }

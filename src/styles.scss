@@ -35,3 +35,7 @@ body { background: grey; }
 }
 
 @keyframes r { to { transform: rotate(1turn); } }
+
+.status {
+  text-transform: uppercase;
+}

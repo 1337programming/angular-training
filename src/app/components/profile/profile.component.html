@@ -1,10 +1,10 @@
 <div class="container">
-  <div class="row card first">
+  <div class="row card first" [style.background-color]="color">
     <div class="title col-sm-12">
       <i class="fa fa-university"></i>
     </div>
     <div class="status verified col-sm-12">
-      verified
+      verified - <span class="badge badge-danger">{{state}}</span>
     </div>
     <div class="row content col-sm-12">
       <div class="info unknownBank col-sm-12">
@@ -14,23 +14,16 @@
       <div class="info knownBank col-sm-12">
         <div class="logo"></div>
       </div>
-      <div class="info col-xs-6">
-        <p class="title">Routing Number</p>
-        <p>112111551</p>
-      </div>
-      <div class="info col-xs-6">
-        <p class="title">Account Number</p>
-        <p>112111551</p>
-      </div>
+      <bank-profile-account-info [accountNum]="12123124124" [routingNum]="12135352212" (onSubmit)="changeState($event)"></bank-profile-account-info>
     </div>
     <div class="footer col-sm-12">
-      <div class="action" [class.reveal]="!removing" [hidden]="removeAnim">
-        <a id="removeCard" (click)="toggleRemove(true)">Remove</a>
+      <div class="action" [class.reveal]="!paying" [hidden]="payAnim">
+        <a (click)="togglePay(true)">Pay</a>
       </div>
-      <div class="confirm" [class.reveal]="removing" [hidden]="!removeAnim">
-        <span class="message">Remove bank account?</span>
-        <a (click)="remove()">Yes</a>
-        <a id="cancelDelete" (click)="toggleRemove(false)">No</a>
+      <div class="confirm" [class.reveal]="paying" [hidden]="!payAnim">
+        <span class="message">Pay bill $100?</span>
+        <a (click)="pay()">Yes</a>
+        <a (click)="togglePay(false)">No</a>
       </div>
     </div>
   </div>

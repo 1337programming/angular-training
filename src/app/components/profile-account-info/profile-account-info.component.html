@@ -1,0 +1,13 @@
+<div class="info col-xs-6">
+  <p class="title">Routing Number</p>
+  <p class="text-sm-center">{{routingNum}}</p>
+</div>
+<div class="info col-xs-6">
+  <p class="title">Account Number</p>
+  <p class="text-sm-center">{{accountNum}}</p>
+</div>
+
+<p>Change Local State:</p>
+<input class="form-control" [(ngModel)]="myStr">
+<p>{{myStr}}</p>
+<button class="btn btn-info" (click)="submit(myStr)">Submit</button>

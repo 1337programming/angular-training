@@ -8,25 +8,10 @@ import { SampleStateService } from './services/sample-state.service';
 })
 export class AppComponent implements OnInit {
   
-  public applicationName: string;
-  public state: string;
-  public preState: string
-  
-  constructor(private sampleStateService: SampleStateService) {
+  constructor() {
   }
   
   public ngOnInit() {
-    this.applicationName = 'My Banking Application';
-    this.streamState();
   }
   
-  public streamState(): void {
-    this.sampleStateService.streamState().subscribe((state: string) => {
-      this.state = state;
-    });
-  }
-  
-  public updateState(str: string): void {
-    this.sampleStateService.updateState(str);
-  }
 }

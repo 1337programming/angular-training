@@ -8,17 +8,24 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { DataHandlerService } from './services/data-handler.service';
 import { ProfileAccountInfoComponent } from './components/profile-account-info/profile-account-info.component';
 import { SampleStateService } from './services/sample-state.service';
+import { RouterModule } from '@angular/router';
+import { APP_ROUTES } from './app.routes';
+import { StatementsModule } from './statements/statements.module';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProfileComponent,
-    ProfileAccountInfoComponent
+    ProfileAccountInfoComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    StatementsModule,
+    RouterModule.forRoot(APP_ROUTES)
   ],
   providers: [
     DataHandlerService,

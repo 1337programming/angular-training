@@ -1,0 +1,23 @@
+<div class="jumbotron">
+  <h1 class="display-3">{{applicationName}}</h1>
+  <p class="lead">
+    This is a simple Angular banking application.
+  </p>
+  <hr class="my-4">
+  <div class="col-xl-3">
+    <p class="status">Current Global State: <span class="badge badge-danger">{{state}}</span></p>
+    <input class="form-control" [(ngModel)]="preState">
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" role="button" (click)="updateState(preState)">Update</a>
+    </p>
+    <p class="lead">
+      <a class="card-link" routerLink="/statements">View Statements</a>
+    </p>
+  </div>
+</div>
+<div class="container">
+  <bank-profile></bank-profile>
+  <bank-profile [color]="'rgb(177, 63, 73)'"></bank-profile>
+  <bank-profile [color]="'rgb(89, 148, 183)'"></bank-profile>
+  <bank-profile [color]="'rgb(63, 177, 114)'"></bank-profile>
+</div>

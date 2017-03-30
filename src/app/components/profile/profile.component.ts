@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
     this.paying = this.payAnim = false;
     this.listenForPayments();
     this.streamState();
-    console.log(this.myInfo, 'Accessing View Child');
+    console.log(this.myInfo.accountNum, 'Accessing View Child');
   }
   
   public pay(): void {

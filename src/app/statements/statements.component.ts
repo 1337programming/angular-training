@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'bank-statements',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatementsComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private route: ActivatedRoute) {
   }
-
+  
+  public ngOnInit() {
+    this.route.data.subscribe((res: Object) => {
+      console.log(res);
+    });
+    console.log(this.route.snapshot.params);
+  }
+  
 }

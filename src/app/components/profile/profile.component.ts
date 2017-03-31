@@ -1,24 +1,27 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ProfileAccountInfoComponent } from '../profile-account-info/profile-account-info.component';
 import { DataHandlerService } from '../../services/data-handler.service';
 import { SampleStateService } from '../../services/sample-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'bank-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   
   @Input() public color: string = '#546e7a'; // Default input
   public paying: boolean;
   public payAnim: boolean;
   public state: string;
+  private subscribers: Subscription[];
   
   // Avoid doing this unless really need to
   @ViewChild(ProfileAccountInfoComponent) public myInfo: ProfileAccountInfoComponent;
   
   constructor(private dataHandler: DataHandlerService, private sampleStateService: SampleStateService) {
+    this.subscribers = [];
   }
   
   public ngOnInit() {
@@ -26,6 +29,12 @@ export class ProfileComponent implements OnInit {
     this.listenForPayments();
     this.streamState();
     console.log(this.myInfo.accountNum, 'Accessing View Child');
+  }
+  
+  public ngOnDestroy() {
+    for (let i: number = 0; i < this.subscribers.length; i++) {
+      this.subscribers[i].unsubscribe();
+    }
   }
   
   public pay(): void {
@@ -46,16 +55,18 @@ export class ProfileComponent implements OnInit {
   }
   
   public streamState(): void {
-    this.sampleStateService.streamState().subscribe((state: string) => {
+    const sub1: Subscription = this.sampleStateService.streamState().subscribe((state: string) => {
       this.state = state;
     });
+    this.subscribers.push(sub1);
   }
   
   public listenForPayments(): void {
-    this.dataHandler.streamPayment().subscribe((val: boolean) => {
+    const sub2: Subscription = this.dataHandler.streamPayment().subscribe((val: boolean) => {
       console.log('Payment:', val);
       this.state = 'Payed';
     });
+    this.subscribers.push(sub2);
   }
   
 }

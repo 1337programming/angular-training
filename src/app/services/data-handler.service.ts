@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Observer, Subject } from 'rxjs';
 import { Checkbook } from '../models/checkbook';
 
 @Injectable()
@@ -24,6 +24,16 @@ export class DataHandlerService {
   
   public streamPayment(): Observable<boolean> {
     return this.payment.asObservable();
+  }
+  
+  public getData(type: string): Observable<string> {
+    return Observable.create((observer: Observer<string>) => {
+      if (type === 'statement') {
+        observer.next('Data');
+      } else {
+        observer.error('Incorrect');
+      }
+    });
   }
   
 }

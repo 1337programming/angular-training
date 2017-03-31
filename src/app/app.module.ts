@@ -24,7 +24,6 @@ import { HomeComponent } from './components/home/home.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    StatementsModule,
     RouterModule.forRoot(APP_ROUTES)
   ],
   providers: [
